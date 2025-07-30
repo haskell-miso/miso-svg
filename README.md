@@ -1,4 +1,4 @@
-# :ramen: miso-svg
+# :ramen: 🖼️ miso-svg
 
 ## Build and run
 
