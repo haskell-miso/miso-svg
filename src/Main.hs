@@ -1,47 +1,48 @@
+-----------------------------------------------------------------------------
 {-# LANGUAGE CPP               #-}
 {-# LANGUAGE OverloadedStrings #-}
-
+-----------------------------------------------------------------------------
 module Main where
-
+-----------------------------------------------------------------------------
 import           Control.Monad.State
 import qualified Data.Map as M
-
-import           Miso hiding (update)
+-----------------------------------------------------------------------------
+import           Miso hiding (update, text_)
 import           Miso.String (ms)
 import           Miso.Svg hiding (height_, id_, style_, width_)
 import qualified Miso.Style as CSS
-
+-----------------------------------------------------------------------------
 #if WASM
 foreign export javascript "hs_start" main :: IO ()
 #endif
-
+-----------------------------------------------------------------------------
 main :: IO ()
-main = run $ startComponent app
+main = run $ startApp app
   { events = M.insert "pointermove" False pointerEvents
   , subs = [ mouseSub HandlePointer ]
   }
-
+-----------------------------------------------------------------------------
 -- | Component definition (uses 'component' smart constructor)
-app :: Component Model Action
+app :: App Model Action
 app = component emptyModel updateModel viewModel
-
+-----------------------------------------------------------------------------
 emptyModel :: Model
 emptyModel = Model (0, 0)
-
-updateModel :: Action -> Effect Model Action
+-----------------------------------------------------------------------------
+updateModel :: Action -> Transition Model Action
 updateModel (HandlePointer pointer) = modify update
   where
     update m = m { mouseCoords = client pointer }
-
+-----------------------------------------------------------------------------
 data Action
   = HandlePointer PointerEvent
-
+-----------------------------------------------------------------------------
 newtype Model
   = Model
   { mouseCoords :: (Double, Double)
   } deriving (Show, Eq)
-
-viewModel :: Model -> View Action
+-----------------------------------------------------------------------------
+viewModel :: Model -> View Model Action
 viewModel (Model (x, y)) =
     div_
         []
@@ -75,3 +76,4 @@ viewModel (Model (x, y)) =
                 [text $ ms $ show (round x :: Int, round y :: Int)]
             ]
         ]
+-----------------------------------------------------------------------------

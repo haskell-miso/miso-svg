@@ -3,11 +3,15 @@ name:                   miso-svg
 version:                0.1
 
 executable app
+  if arch(wasm32)
+    cpp-options:
+      -DWASM
+    ghc-options:
+      -no-hs-main -optl-mexec-model=reactor "-optl-Wl,--export=hs_start"
+
   hs-source-dirs:       src
   main-is:              Main.hs
   build-depends:        base, containers, miso, mtl
   default-language:     GHC2021
-  ghc-options:          -Wall -no-hs-main -optl-mexec-model=reactor "-optl-Wl,--export=hs_start" -ddump-splices
-  cpp-options:          -DWASM
   default-extensions:   CPP TemplateHaskell
  
