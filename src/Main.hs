@@ -10,7 +10,6 @@ import           Miso hiding (update)
 import           Miso.String (ms)
 import           Miso.Svg hiding (height_, id_, style_, width_)
 import qualified Miso.Style as CSS
-import           Miso.Style ((=:))
 
 #if WASM
 foreign export javascript "hs_start" main :: IO ()
