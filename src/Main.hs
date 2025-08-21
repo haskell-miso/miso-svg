@@ -8,10 +8,14 @@ import           Control.Monad.State
 import qualified Data.Map as M
 -----------------------------------------------------------------------------
 import           Miso hiding (update, text_)
+import qualified Miso.Html.Element as H
+import qualified Miso.Html.Property as P
+import qualified Miso.Svg.Element as S
+import qualified Miso.Svg.Property as SP
 import           Miso.String (ms)
 import           Miso.Lens (this, (.=))
 import           Miso.Svg hiding (height_, id_, style_, width_)
-import qualified Miso.Style as CSS
+import qualified Miso.CSS as CSS
 -----------------------------------------------------------------------------
 #if WASM
 foreign export javascript "hs_start" main :: IO ()
@@ -24,7 +28,9 @@ main = run $ startApp app
 -----------------------------------------------------------------------------
 -- | Component definition (uses 'component' smart constructor)
 app :: App Model Action
-app = component emptyModel updateModel viewModel
+app = (component emptyModel updateModel viewModel)
+  { subs = [ mouseSub HandlePointer ]
+  }
 -----------------------------------------------------------------------------
 emptyModel :: Model
 emptyModel = (0, 0)
@@ -38,34 +44,32 @@ type Model = (Double, Double)
 -----------------------------------------------------------------------------
 viewModel :: Model -> View Model Action
 viewModel (x, y) =
-  div_
+  H.div_
     []
-    [ svg_
+    [ H.svg_
       [ CSS.style_
         [ CSS.borderStyle "solid"
         , CSS.height "700px"
         , CSS.width "100%"
         ]
-      , onPointerMove HandlePointer
       ]
-      [ g_
+      [ S.g_
         []
-        [ ellipse_
-          [ cx_ (ms x)
-          , cy_ (ms y)
+        [ S.ellipse_
+          [ SP.cx_ (ms x)
+          , SP.cy_ (ms y)
           , CSS.style_
             [ CSS.fill "yellow"
             , CSS.stroke "purple"
             , CSS.strokeWidth "2"
             ]
-          , rx_ "100"
-          , ry_ "100"
+          , SP.rx_ "100"
+          , SP.ry_ "100"
           ]
-          []
         ]
       , text_
-        [ x_ (ms x)
-        , y_ (ms y)
+        [ SP.x_ (ms x)
+        , SP.y_ (ms y)
         ]
         [ text $ ms $ show (round x, round y)
         ]
