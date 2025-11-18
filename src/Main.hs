@@ -46,7 +46,8 @@ viewModel :: Model -> View Model Action
 viewModel (x, y) =
   H.div_
     []
-    [ H.svg_
+    [ H.h1_ [ CSS.style_ [ CSS.fontFamily "monospace" ] ] [ "🍜 🖼️ miso-svg" ]
+    , H.svg_
       [ CSS.style_
         [ CSS.borderStyle "solid"
         , CSS.height "700px"
