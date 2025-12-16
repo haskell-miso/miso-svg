@@ -50,7 +50,7 @@ viewModel (x, y) =
       [ CSS.style_ [ CSS.fontFamily "monospace" ] 
       ]
       [ "🍜 🖼️ "
-      , a_ [ P.href_ "https://github.com/haskell-miso/miso-svg" ] [ "miso-svg" ] 
+      , H.a_ [ P.href_ "https://github.com/haskell-miso/miso-svg" ] [ "miso-svg" ] 
       ]
     , H.svg_
       [ CSS.style_
