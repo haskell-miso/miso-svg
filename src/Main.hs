@@ -46,7 +46,12 @@ viewModel :: Model -> View Model Action
 viewModel (x, y) =
   H.div_
     []
-    [ H.h1_ [ CSS.style_ [ CSS.fontFamily "monospace" ] ] [ "🍜 🖼️ miso-svg" ]
+    [ H.h1_ 
+      [ CSS.style_ [ CSS.fontFamily "monospace" ] 
+      ]
+      [ "🍜 🖼️ "
+      , a_ [ P.href_ "https://github.com/haskell-miso/miso-svg" ] [ "miso-svg" ] 
+      ]
     , H.svg_
       [ CSS.style_
         [ CSS.borderStyle "solid"
