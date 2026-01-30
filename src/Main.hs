@@ -22,9 +22,7 @@ foreign export javascript "hs_start" main :: IO ()
 #endif
 -----------------------------------------------------------------------------
 main :: IO ()
-main = run $ startApp app
-  { events = M.singleton "pointermove" BUBBLE
-  }
+main = startApp (M.singleton "pointermove" BUBBLE) app
 -----------------------------------------------------------------------------
 -- | Component definition (uses 'component' smart constructor)
 app :: App Model Action
