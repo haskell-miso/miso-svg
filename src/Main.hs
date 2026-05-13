@@ -42,8 +42,7 @@ type Model = (Double, Double)
 -----------------------------------------------------------------------------
 viewModel :: Model -> View Model Action
 viewModel (x, y) =
-  H.div_
-    []
+  vfrag
     [ H.h1_ 
       [ CSS.style_ [ CSS.fontFamily "monospace" ] 
       ]
